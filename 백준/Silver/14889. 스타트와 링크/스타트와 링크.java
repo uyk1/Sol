@@ -1,4 +1,7 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 	static int N;
@@ -6,13 +9,16 @@ public class Main {
 	static boolean[] sel; // true와 false로 팀 구별을 할 것
 	static int ans;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
 		map = new int[N][N];
-		for (int i = 0; i < N; i++)
-			for (int j = 0; j < N; j++)
-				map[i][j] = sc.nextInt();
+		StringTokenizer st;
+		for (int i = 0; i < N; i++) {
+			st = new StringTokenizer(br.readLine());
+			for(int j = 0; j < N; j++)
+				map[i][j] = Integer.parseInt(st.nextToken());
+		}
 		ans = Integer.MAX_VALUE; // 최소값을 위한 초기화
 		sel = new boolean[N];
 
