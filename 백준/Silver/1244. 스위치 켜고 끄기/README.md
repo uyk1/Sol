@@ -1,10 +1,10 @@
-# [Silver III] 스위치 켜고 끄기 - 1244 
+# [Silver IV] 스위치 켜고 끄기 - 1244 
 
 [문제 링크](https://www.acmicpc.net/problem/1244) 
 
 ### 성능 요약
 
-메모리: 18524 KB, 시간: 256 ms
+메모리: 18640 KB, 시간: 248 ms
 
 ### 분류
 

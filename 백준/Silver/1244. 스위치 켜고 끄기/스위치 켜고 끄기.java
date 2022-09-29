@@ -1,90 +1,67 @@
 import java.util.Scanner;
 
 public class Main {
-
-	public static Scanner sc = new Scanner(System.in);
-
-	public static int size = sc.nextInt();
-
-	public static int[] status = new int[size];
-
 	public static void main(String[] args) {
-
-		for (int i = 0; i < size; i++) {
-			status[i] = sc.nextInt();
+		Scanner sc = new Scanner(System.in);
+		int N = sc.nextInt(); // 스위치 개수
+		int[] arr = new int[N];
+		for (int i = 0; i < N; i++) {
+			arr[i] = sc.nextInt();
 		}
-
-		int stdSize = sc.nextInt();
-
-		for (int i = 0; i < stdSize; i++) {
-
-			if (sc.nextInt() == 1) {
-				stdM();
-			} else {
-				stdW();
-			}
-
-		}
-
-		for (int i = 1; i < size + 1; i++) {
-			if (!(i % 20 == 0)) {
-				System.out.print(status[i - 1] + " ");
-			} else {
-				System.out.println(status[i - 1]);
-			}
-		}
+		int total = sc.nextInt();
+		int[][] chg = new int[total][2];
+		for (int i = 0; i < total; i++)
+			for (int j = 0; j < 2; j++)
+				chg[i][j] = sc.nextInt();
 		
-		sc.close();
-	}
-
-	public static void stdM() {
-		int t = sc.nextInt();
-		for (int i = 1; i < size + 1; i++) {
-			if (i % t == 0) {
-				if (status[i - 1] == 0) {
-					status[i - 1] = 1;
-				} else {
-					status[i - 1] = 0;
+		// 학생 수만큼 반복
+		for (int i = 0; i < total; i++) {
+			// 남학생
+			if (chg[i][0] == 1) {
+				int m = 1;
+				while (true) {
+					int a = chg[i][1];
+					int b = a * m - 1;
+					
+					if (N <= b)
+						break;
+					if (arr[b] == 1)
+						arr[b] = 0;
+					else
+						arr[b] = 1;
+					m++;
+				}
+			}
+			
+			// 여학생
+			else {
+				int cnt = 0;
+				while (true) {
+					int a = chg[i][1]-1;
+					int am = a - cnt;
+					int ap = a + cnt;
+					if(am < 0 || ap >= N)
+						break;
+					if(arr[am] != arr[ap])
+						break;
+					if (arr[am] == 1) {
+						arr[am] = 0;
+						arr[ap] = 0;
+					} else {
+						arr[am] = 1;
+						arr[ap] = 1;
+					}
+					cnt++;
 				}
 			}
 		}
-	}
 
-	public static void stdW() {
-		int t = sc.nextInt() - 1;
-		if (status[t] == 0) {
-			status[t] = 1;
-		} else {
-			status[t] = 0;
-		}
-		if ((t+1) <= size / 2) {
-			for (int i = t - 1, j = t + 1; i >= 0; i--, j++) {
-				if (!(status[i] == status[j])) {
-					break;
-				} else {
-					if (status[i] == 0) {
-						status[i] = 1;
-						status[j] = 1;
-					} else {
-						status[i] = 0;
-						status[j] = 0;
-					}
-				}
+		for (int i = 0; i < arr.length; i++) {
+			if ((i + 1) % 20 == 0) {
+				System.out.println(arr[i]);
+			}else {
+				System.out.print(arr[i] + " ");
 			}
-		}else {
-			for (int i = t - 1, j = t + 1; j < size; i--, j++) {
-				if (!(status[i] == status[j])) {
-					break;
-				} else {
-					if (status[i] == 0) {
-						status[i] = 1;
-						status[j] = 1;
-					} else {
-						status[i] = 0;
-						status[j] = 0;
-					}
-				}
-			}			
 		}
 	}
 }
