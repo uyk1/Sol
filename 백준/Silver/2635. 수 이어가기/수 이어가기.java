@@ -1,65 +1,40 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		
 		int N = sc.nextInt();
-		
-		int cnt = 0; // 만들어지는 음수 아닌 수들의 개수 확인
-		
-		int max = 0; // 가장 많이 만들어진 개수(세번째부터의 개수)
-		
-		int maxn = 1; // 두번째로 들어갈 수의 값. 양의 정수이므로 1부터 시작(특히 N이 1일 경우)
-		
-		for (int i = 1; i <= N; i++) {
-			
-			List<Integer> cal = new ArrayList<>();
-			
-			cal.add(N); // 첫 값 저장
-			cal.add(i); // 두번째 값 저장
-			
-			int res = 0; // 뺄셈 결과
-			
-			while(res >= 0) {
-				cal.add(cal.get(cal.size()-2)-cal.get(cal.size()-1));
-				
-				res = cal.get(cal.size()-1);
-				
-				cnt++; // 나중에 마지막 한 개는 빼주어야 함.
+		int[] arr = null;
+		ArrayList<Integer> list = new ArrayList<>();
+		list.add(N);
+		int ans = 0;
+		//두번째 수의 선택은 예제를 보았을 때 원 숫자의 60% 내외일 것//N이 1인 경우 예외
+		for(int i = N/2; i < N; i++) {
+			int next;
+			if(N == 1) {
+				list.add(1);
+				next = 0;
 			}
-			
-			cnt--; // 마지막 음의 정수는 버림.
-			
-			if(max < cnt) {
-				max = cnt;
-				maxn = i;
+			else {
+				list.add(i);
+				next = N - i;
 			}
-			
-			cnt = 0; // 초기화
-		} // for end
-		
-		List<Integer> ans = new ArrayList<>();
-		
-		ans.add(N); // 첫 값 저장
-		ans.add(maxn); // 두번째 값 저장
-		
-		int res = 0;
-		
-		while(res >= 0) {
-			ans.add(ans.get(ans.size()-2)-ans.get(ans.size()-1));
-			
-			res = ans.get(ans.size()-1);
+			int cnt = 2;
+			while(next >= 0) {
+				cnt++;
+				list.add(next);
+				next = list.get(cnt-2) - list.get(cnt-1);
+			}
+			if(ans < cnt) {
+				ans = cnt;
+				arr = new int[list.size()];
+				for(int j = 0; j < list.size(); j++) arr[j] = list.get(j);
+			}
+			list.clear();
+			list.add(N);
 		}
-		
-		System.out.println(max + 2); // N, maxn 결과도 포함시킴
-		
-		for(int i = 0; i < ans.size()-1; i++) { // 마지막 음수 제외
-			
-			System.out.printf("%d ", ans.get(i));
-		}
-		
-	} // main
-} // class
+		System.out.println(ans);
+		for(int i: arr) System.out.print(i + " ");
+	}
+}
