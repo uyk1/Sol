@@ -31,9 +31,10 @@ class Solution {
         }
     }
     
+    // 에라스토테네스의 체 방식 적용해보자
     static boolean isPrime(int num) {
         if(num == 0 || num == 1) return false;
-        for(int i = 2; i < num/2+1; i++) if(num%i == 0) return false; // num/2까지만 할 경우 num이 4일 때 문제
+        for(int i = 2; i * i <= num; i++) if(num%i == 0) return false;
         return true;
     }
 }
