@@ -33,7 +33,7 @@ class Solution {
     
     static boolean isPrime(int num) {
         if(num == 0 || num == 1) return false;
-        for(int i = 2; i < num/2+1; i++) if(num%i == 0) return false;
+        for(int i = 2; i < num/2+1; i++) if(num%i == 0) return false; // num/2까지만 할 경우 num이 4일 때 문제
         return true;
     }
 }
