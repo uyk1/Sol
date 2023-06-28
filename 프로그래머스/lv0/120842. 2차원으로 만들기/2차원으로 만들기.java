@@ -16,3 +16,4 @@ class Solution {
         return answer;
     }
 }
+// 행 열을 그냥 num_list.length/n, num_list.length%n 로 했으면 간단
