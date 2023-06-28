@@ -18,3 +18,4 @@ class Solution {
         return answer;
     }
 }
+// getOrDefault()를 활용하면 좋았을 것.
