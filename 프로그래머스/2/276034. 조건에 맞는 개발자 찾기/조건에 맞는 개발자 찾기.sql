@@ -1,0 +1,10 @@
+SELECT ID, EMAIL, FIRST_NAME, LAST_NAME
+FROM DEVELOPERS
+WHERE SKILL_CODE &
+    (SELECT CODE FROM SKILLCODES WHERE NAME = 'Python')
+    OR SKILL_CODE &
+    (SELECT CODE FROM SKILLCODES WHERE NAME = 'C#')
+ORDER BY ID;
+
+/* 이때 WHERE 절에서 작성한 조건은 비트 연산의 결과가 0이 아닌
+경우 조건에 부합하는 기술 스택을 가지고 있는 것이라 봄. */
