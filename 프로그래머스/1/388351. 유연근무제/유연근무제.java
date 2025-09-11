@@ -1,36 +1,37 @@
 class Solution {
     public int solution(int[] schedules, int[][] timelogs, int startday) {
         int answer = 0;
+        int num = schedules.length; // 인원수
+        int len = timelogs[0].length; // 진행날짜
         
-        int n = schedules.length; // 직원 수
-        
-        // 반복문을 돌며 상을 받을 수 있는지 확인(직원별)
-        for(int i = 0; i < n; i++) {
-            int cnt = 0; // 시간에 맞춰 출근한 일수 카운트
-            
-            for(int j = 0; j < 7; j++) {
-                int d = startday + j; // 현재 요일
-                // 토, 일의 경우 의미없음
-                if(d % 7 == 6 || d % 7 == 0) {
+        // 인원별로 진행
+        for(int i = 0; i < num; i++) {
+            int day = startday; // 시작일
+            boolean flag = false; // 지각여부
+            int sch = schedules[i]; // 지정한 출근 시간
+            int limit; // 지각 리미트
+            if((sch + 10) % 100 >= 60) {
+                limit = (sch / 100 + 1) * 100 + ((sch + 10) % 100 - 60);
+            } else {
+                limit = sch + 10;
+            }
+            int[] log = timelogs[i]; // 실제 출근 로그
+            // 일주일
+            for(int j = 0; j < len; j++) {
+                if(day > 5) { // 토, 일 스킵
+                    if(day != 7) day++;
+                    else day = 1;
                     continue;
                 }
-
-                // 희망, 실제 출근 시간 비교
-                int wh = schedules[i] / 100;
-                int wm = schedules[i] % 100 + 10;
-                if(wm >= 60) {
-                    wh += 1;
-                    wm -= 60;
+                // 지각여부 확인
+                if(limit < log[j]) {
+                    flag = true;
+                    break;
                 }
-                int rh = timelogs[i][j] / 100;
-                int rm = timelogs[i][j] % 100;
-
-                if(wh * 60 + wm >= rh * 60 + rm) {
-                    cnt++;
-                }
+                day++;
             }
-            
-            if(cnt == 5) answer++;
+            // flag가 false이면 지각 X
+            if(!flag) answer++;
         }
         
         return answer;
