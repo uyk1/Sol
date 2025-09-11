@@ -8,12 +8,12 @@ class Solution {
         for(int i = 0; i < num; i++) {
             int day = startday; // 시작일
             boolean flag = false; // 지각여부
-            int sch = schedules[i]; // 지정한 출근 시간
+            int sch = schedules[i] + 10; // 지정한 출근 시간 + 10
             int limit; // 지각 리미트
-            if((sch + 10) % 100 >= 60) {
-                limit = (sch / 100 + 1) * 100 + ((sch + 10) % 100 - 60);
+            if(sch % 100 >= 60) {
+                limit = (sch / 100 + 1) * 100 + (sch % 100 - 60);
             } else {
-                limit = sch + 10;
+                limit = sch;
             }
             int[] log = timelogs[i]; // 실제 출근 로그
             // 일주일
