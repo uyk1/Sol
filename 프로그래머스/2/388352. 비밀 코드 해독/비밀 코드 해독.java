@@ -2,42 +2,23 @@ import java.util.*;
 
 class Solution {
     public int solution(int n, int[][] q, int[] ans) {
-        int answer = 0; // 비밀코드로 가능한 정수 조합의 개수
-        
-        // 1 ~ n까지의 숫자에서 중복되지 않는 5개의 정수를 선택하는 모든 조합 생성
-        List<int[]> combinations = generateCombinations(n, 5);
-        
-        // 위의 list에 대입하여 주어진 q 검증
-        for(int[] combo : combinations) {
-            if(isValidCombination(combo, q, ans)) answer++;
-        }
-        
-        return answer;
+        return generateAndValidate(new int[5], 0, 1, n, q, ans);
     }
     
-    /**
-     * n개 중 k개를 선택하는 모든 조합 생성
-     */
-    private static List<int[]> generateCombinations(int n, int k) {
-        List<int[]> result = new ArrayList<>();
-        int[] current = new int[k];
-        generateCombinationsHelper(1, n, k, 0, current, result); // 조합 생성
-        
-        return result;
-    }
-    
-    private static void generateCombinationsHelper(int start, int n, int k, int index, int[] current, List<int[]> result) {
-        if(index == k) {
-            // 조합이 완성되면 추가
-            result.add(current.clone());
-            return;
+    private static int generateAndValidate(int[] current, int index, int start, int n, int[][] q, int[] ans) {
+        if(index == 5) {
+            // 조합이 완성되면 검증
+            return isValidCombination(current.clone(), q, ans) ? 1: 0;
         }
         
+        int count = 0; // 비밀 코드로 가능한 정수 조합의 수
+        // 1부터 n까지 조합 생성
         for(int i = start; i < n + 1; i++) {
             current[index] = i;
-            generateCombinationsHelper(i + 1, n, k, index + 1 , current, result);
+            count += generateAndValidate(current, index + 1, i + 1, n, q, ans);
         }
         
+        return count;
     }
     
     /**
