@@ -15,8 +15,6 @@ class Solution {
             int v = park.length; // 공원 세로 길이
             int h = park[0].length; // 공원 가로 길이
             
-            System.out.println(len);
-            
             // 공원을 돌며 자리 확인
             for(int i = 0; i < v; i++) {
                 // 만약 현재 위치에서 매트 길이만큼 세로 공간이 충분하지 않다면 브레이크
