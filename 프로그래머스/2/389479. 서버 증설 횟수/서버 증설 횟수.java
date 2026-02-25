@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public int solution(int[] players, int m, int k) {
         int answer = 0; // 증설 횟수
@@ -12,15 +10,13 @@ class Solution {
             if(tmpCnt <= 0) continue;
             // sArr 현행화
             int tmpIdx = i;
-            while(tmpIdx < 24 && tmpIdx < i + k) {
+            while(tmpIdx < Math.min(i + k, 24)) {
                 sArr[tmpIdx] += tmpCnt;
                 tmpIdx++;
             }
             
             answer += tmpCnt;
         }
-        
-        System.out.println(Arrays.toString(sArr));
         
         return answer;
     }
