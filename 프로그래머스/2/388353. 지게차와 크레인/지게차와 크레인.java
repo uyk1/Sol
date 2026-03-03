@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Queue;
+import java.util.LinkedList;
 
 class Solution {
     // 전역 변수 설정
@@ -22,7 +24,7 @@ class Solution {
         for(String str : requests) {
             if(str.length() == 1) {
                 // 지게차
-                forklift(str.charAt(0));
+                forkliftBfs(str.charAt(0));
             } else {
                 // 크레인
                 crane(str.charAt(0));
@@ -30,6 +32,39 @@ class Solution {
         }
         
         return answer;
+    }
+    
+    private void forkliftBfs(char c) {
+        boolean[][] visited = new boolean[n + 2][m + 2];
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{0, 0});
+        visited[0][0] = true;
+        
+        // 큐가 빌 때까지 반복 탐색
+        while(!q.isEmpty()) {
+            int[] cur = q.poll();
+            
+            for(int i = 0; i < 4; i++) {
+                int nx = cur[0] + dx[i];
+                int ny = cur[1] + dy[i];
+                
+                // 범위
+                if(nx < 0 || nx > n + 1 || ny < 0 || ny > m + 1) continue;
+                
+                // 방문 여부
+                if(visited[nx][ny]) continue;
+                else visited[nx][ny] = true;
+                
+                // 조건별 진행
+                if(grid[nx][ny] == ' ') {
+                    q.add(new int[]{nx, ny});
+                } else if(grid[nx][ny] == c) {
+                    // 연쇄 출고 방지를 위해 큐에 추가 X.
+                    grid[nx][ny] = ' ';
+                    answer--;
+                }
+            }
+        }
     }
     
     private void forklift(char c) {
