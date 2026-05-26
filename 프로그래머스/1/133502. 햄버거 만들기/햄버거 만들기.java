@@ -1,0 +1,29 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] ingredient) {
+        int answer = 0;
+        
+        List<Integer> list = new ArrayList<>();
+        
+        for(int i : ingredient) {
+            list.add(i);
+            
+            if(list.size() < 4 || list.get(list.size() - 1) != 1) continue;
+            
+            // 뒤에서부터 4개 확인
+            if(list.get(list.size() - 4) == 1 &&
+              list.get(list.size() - 3) == 2 &&
+              list.get(list.size() - 2) == 3 &&
+              list.get(list.size() - 1) == 1
+              ) {
+                answer++;
+                
+                // 제거
+                for(int j = 0; j < 4; j++) list.remove(list.size() - 1);
+            }
+        }
+        
+        return answer;
+    }
+}
