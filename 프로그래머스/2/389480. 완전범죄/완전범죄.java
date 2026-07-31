@@ -18,8 +18,6 @@ class Solution {
                         int tmpN = i + target[0];
                         int tmpM = j + target[1];
                         
-                        if(tmpN >= n && tmpM >= m) continue;
-                        
                         if(tmpN < n) next[tmpN][j] = true;
                         if(tmpM < m) next[i][tmpM] = true;
                     }
