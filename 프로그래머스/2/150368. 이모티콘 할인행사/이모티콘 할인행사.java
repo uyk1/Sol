@@ -23,7 +23,7 @@ class Solution {
             return;
         }
         
-        // 조합 만들기(순서, 중복 상관 없음)
+        // 중복 순열
         for(int d : discounts) {
             selected[depth] = d;
             dfs(depth + 1, users, emoticons);
