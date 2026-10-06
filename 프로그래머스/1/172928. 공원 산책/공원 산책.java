@@ -11,8 +11,6 @@ class Solution {
         // 공원 맵 채우기
         for(int i = 0; i < h; i++) map[i] = park[i].toCharArray();
         
-        System.out.println(Arrays.deepToString(map));
-        
         // 시작지점 찾기
         out : for(int i = 0; i < h; i++) {
             for(int j = 0; j < w; j++) {
@@ -22,8 +20,6 @@ class Solution {
                 }
             }
         }
-        
-        System.out.println(Arrays.toString(answer));
         
         // 로봇 이동시키기
         for(int i = 0; i < routes.length; i++) {
