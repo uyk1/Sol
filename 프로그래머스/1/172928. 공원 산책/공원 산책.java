@@ -32,88 +32,29 @@ class Solution {
             int dist = route[2] - '0'; // 이동 거리
             boolean flag = true; // 명령 수행 가능 여부 확인
             
+            // 방향 벡터
+            int dx = 0;
+            int dy = 0;
+            
+            if(dir == 'N') dx = -1;
+            else if(dir == 'S') dx = 1;
+            else if(dir == 'W') dy = -1;
+            else dy = 1;
+            
             for(int j = 1; j <= dist; j++) {
-                // N
-                if(dir == 'N') {
-                    int tmp = answer[0] - j;
-                    
-                    // 맵 범위 확인
-                    if(tmp < 0) {
-                        flag = false;
-                        break;
-                    }
-                    
-                    // 장애물 확인
-                    if(map[tmp][answer[1]] == 'X') {
-                        flag = false;
-                        break;
-                    }
-                }
+                int nx = answer[0] + j * dx;
+                int ny = answer[1] + j * dy;
                 
-                // S
-                if(dir == 'S') {
-                    int tmp = answer[0] + j;
-                    
-                    // 맵 범위 확인
-                    if(tmp > h - 1) {
-                        flag = false;
-                        break;
-                    }
-                    
-                    // 장애물 확인
-                    if(map[tmp][answer[1]] == 'X') {
-                        flag = false;
-                        break;
-                    }
-                }
-                
-                // W
-                if(dir == 'W') {
-                    int tmp = answer[1] - j;
-                    
-                    // 맵 범위 확인
-                    if(tmp < 0) {
-                        flag = false;
-                        break;
-                    }
-                    
-                    // 장애물 확인
-                    if(map[answer[0]][tmp] == 'X') {
-                        flag = false;
-                        break;
-                    }
-                }
-                
-                // E
-                if(dir == 'E') {
-                    int tmp = answer[1] + j;
-                    
-                    // 맵 범위 확인
-                    if(tmp > w - 1) {
-                        flag = false;
-                        break;
-                    }
-                    
-                    // 장애물 확인
-                    if(map[answer[0]][tmp] == 'X') {
-                        flag = false;
-                        break;
-                    }
+                if(nx < 0 || nx >= h || ny < 0 || ny >= w || map[nx][ny] == 'X') {
+                    flag = false;
+                    break;
                 }
             }
             
             // 조건을 통과했다면 로봇 이동
             if(!flag) continue;
             
-            if(dir == 'N') {
-                answer = new int[] {answer[0] - dist, answer[1]};
-            } else if(dir == 'S') {
-                answer = new int[] {answer[0] + dist, answer[1]};
-            } else if(dir == 'W') {
-                answer = new int[] {answer[0], answer[1] - dist};
-            } else {
-                answer = new int[] {answer[0], answer[1] + dist};
-            }
+            answer = new int[] {answer[0] + dist * dx, answer[1] + dist * dy};
         }
         
         return answer;
