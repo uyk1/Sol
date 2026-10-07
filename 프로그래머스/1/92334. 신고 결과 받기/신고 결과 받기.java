@@ -8,6 +8,10 @@ class Solution {
         // 어떤 유저가 동일한 유저를 여러 번 신고하더라도, 1회로 처리됨(Set으로 중복 제거)
         Map<String, Set<String>> map = new HashMap<>();
         
+        // id 탐색용 맵 생성(시간복잡도 감소)
+        Map<String, Integer> id_map = new HashMap<>();
+        for(int i = 0; i < id_list.length; i++) id_map.put(id_list[i], i);
+        
         // report를 돌면서 신고 내역 저장
         for(String str : report) {
             // str 분해
@@ -31,9 +35,7 @@ class Solution {
             
             if(val.size() >= k) {
                 for(String str : val) {
-                    for(int i = 0; i < id_list.length; i++) {
-                        if(str.equals(id_list[i])) answer[i]++;
-                    }
+                    answer[id_map.get(str)]++;
                 }
             }
         }
