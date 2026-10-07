@@ -18,13 +18,17 @@ class Solution {
         }
         
         for(int i : moves) {
-            int item = boardStack.get(i - 1).isEmpty() ? -1 : boardStack.get(i - 1).pop();
+            Deque<Integer> stack = boardStack.get(i - 1); // 참조
+            
+            if(stack.isEmpty()) continue;
+            
+            int item = stack.pop();
             
             if(!bucket.isEmpty() && bucket.peek() == item) {
                 bucket.pop();
                 answer += 2;
             } else {
-                if(item != -1) bucket.push(item);
+                bucket.push(item);
             }
         }
         
