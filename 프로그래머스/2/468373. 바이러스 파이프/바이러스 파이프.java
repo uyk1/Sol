@@ -2,15 +2,15 @@ import java.util.*;
 
 class Solution {
     
-    List<int[]>[] graph;
-    int n, k, start;
-    int answer = 0;
+    private List<int[]>[] graph;
+    private int n, k, start, answer;
     
     public int solution(int n, int infection, int[][] edges, int k) {
         
         this.n = n;
         this.k = k;
         this.start = infection;
+        this.answer = 0;
         
         // 파이프를 여는 순서가 중요
         // 그래프 생성(초기화)
@@ -35,7 +35,7 @@ class Solution {
     }
     
     // 타입 순열 생성
-    void dfs(List<Integer> seq) {
+    private void dfs(List<Integer> seq) {
         // 현재 순서로 시뮬
         simulate(seq);
         
@@ -55,7 +55,7 @@ class Solution {
     }
     
     // 감염 시뮬레이션
-    void simulate(List<Integer> seq) {
+    private void simulate(List<Integer> seq) {
         Set<Integer> infected = new HashSet<>();
         infected.add(start);
         
@@ -67,7 +67,7 @@ class Solution {
     }
     
     // BFS 확장
-    void spread(Set<Integer> infected, int type) {
+    private void spread(Set<Integer> infected, int type) {
         Queue<Integer> q = new LinkedList<>();
         boolean[] visited = new boolean[n+1];
         
