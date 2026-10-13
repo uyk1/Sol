@@ -15,19 +15,19 @@ class Solution {
     private boolean[] visited;
         
     public int solution(int k, int[][] dungeons) {
-        answer = -1;
+        answer = 0;
         visited = new boolean[dungeons.length];
         
         // 순열(중복 X) DFS
-        dfs(new ArrayList<Integer>(), k, dungeons);
+        dfs(0, 0, k, dungeons);
         
         return answer;
     }
     
-    private void dfs(ArrayList<Integer> list, int k, int[][] dungeons) {
-        if(list.size() == dungeons.length) {
-            // 던전 순열이 완성되면 탐험 시작
-            explore(list, k, dungeons);
+    private void dfs(int depth, int cnt, int k, int[][] dungeons) {
+        if(depth == dungeons.length) {
+            // 던전 탐험이 끝나면 answer 갱신
+            answer = Math.max(answer, cnt);
             return;
         }
         
@@ -35,26 +35,14 @@ class Solution {
             if(visited[i]) continue;
             
             visited[i] = true;
-            list.add(i);
             
-            dfs(list, k, dungeons);
+            if(dungeons[i][0] > k) {
+                dfs(depth + 1, cnt, k, dungeons);
+            } else {
+                dfs(depth + 1, cnt + 1, k - dungeons[i][1], dungeons);
+            }
             
             visited[i] = false;
-            list.remove(Integer.valueOf(i));
         }
-    }
-    
-    private void explore(ArrayList<Integer> list, int k, int[][] dungeons) {
-        int cnt = 0;
-        int ap = k;
-        
-        for(int i : list) {
-            if(dungeons[i][0] > ap) continue;
-            
-            cnt++;
-            ap -= dungeons[i][1];
-        }
-        
-        answer = Math.max(answer, cnt);
     }
 }
