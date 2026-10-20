@@ -7,7 +7,7 @@ class Solution {
             long innerSq = (long) r1 * r1 - (long) x * x;
             
             long maxY = (long) Math.floor(Math.sqrt(outerSq));
-            long minY = (long) Math.ceil(Math.sqrt(innerSq));
+            long minY = (x < r1) ? (long) Math.ceil(Math.sqrt(innerSq)) : 0;
             
             answer += maxY - minY + 1;
         }
