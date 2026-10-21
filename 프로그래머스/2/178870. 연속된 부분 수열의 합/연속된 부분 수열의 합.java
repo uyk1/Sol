@@ -27,8 +27,6 @@ class Solution {
                     answerStart = start;
                     answerEnd = end;
                 }
-                sum -= sequence[start];
-                start++;
             }
         }
         
