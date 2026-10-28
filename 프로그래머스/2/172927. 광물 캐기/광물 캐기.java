@@ -40,7 +40,12 @@ class Solution {
             buckets,
             0,
             maxBuckets,
-            (o1, o2) -> Integer.compare(o2[0], o1[0])
+            (a, b) -> {
+                if(a[1] != b[1]) {
+                    return Integer.compare(b[1], a[1]);
+                }
+                return Integer.compare(b[2], a[2]);
+            }
         );
         
         for(int[] bucket : buckets) {
