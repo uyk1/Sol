@@ -7,8 +7,6 @@ class Solution {
     */
     
     public int solution(String[] board) {
-        int answer = Integer.MAX_VALUE;
-        
         int[] dx = {0, 0, -1, 1};
         int[] dy = {-1, 1, 0, 0};
         
@@ -38,10 +36,9 @@ class Solution {
             // 사방탐색 가능한지 확인 & 경계 확인
             Position start = q.poll();
             
-            // 목적지에 도달한 경우 answer와 이동 횟수 비교
+            // 목적지에 도달한 경우 BFS이므로 바로 반환(최소 이동 거리)
             if(start.x == dst[0] && start.y == dst[1]) {
-                answer = Math.min(answer, start.distance);
-                continue;
+                return start.distance;
             }
             
             for(int i = 0; i < 4; i++) {
@@ -69,9 +66,7 @@ class Solution {
             }
         }
         
-        if(answer == Integer.MAX_VALUE) answer = -1;;
-        
-        return answer;
+        return -1;
     }
     
     private class Position {
